@@ -1,54 +1,74 @@
-var pathImg,path
-var runnerImg, runner
-var boundary1, boundary2
-var edges
-
-
-
-
+var garden,rabbit;
+var gardenImg,rabbitImg,appleImg,leafImg;
+var apple;
+var leaf;
 function preload(){
-  //pre-load images
-pathImg=loadImage("path.png")
-runnerImg=loadAnimation("Runner-1.png","Runner-2.png")
-
-
-
-
+  gardenImg = loadImage("garden.png");
+  rabbitImg = loadImage("rabbit.png");
+appleImg = loadImage("apple.png")
+leafImg  = loadImage("orangeLeaf.png")
 }
 
 function setup(){
+  
   createCanvas(400,400);
-  //create sprites here
-createEdgeSprites
-boundary1=createSprite(0,200,40,400)
-boundary2=createSprite(400,200,40,400)
+  
+// Moving background
+garden=createSprite(200,200);
+garden.addImage(gardenImg);
 
-
-path=createSprite(200,200)
-path.addImage(pathImg)
-path.velocityY=4
-path.scale=1.2
-
-runner=createSprite(300,200,10,10)
-runner.addAnimation("runner",runnerImg)
-runner.scale=0.08
-
-
+//creating boy running
+rabbit = createSprite(180,340,30,30);
+rabbit.scale =0.09;
+rabbit.addImage(rabbitImg);
 }
+
+function createApples() {
+apple=createSprite(random(50,350),40,10,10)
+apple.addImage(appleImg)
+apple.scale=0.06
+apple.velocityY=3
+apple.lifetime=200
+}
+
+function createLeaves() {
+leaf=createSprite(random(50,350),100,10,10)
+leaf.addImage(leafImg)
+  leaf.scale=0.07
+  leaf.velocityY=3
+leaf.lifetime=200
+}
+
+
+
+
+
 
 function draw() {
   background(0);
-  path.velocityY=4
-if (path.y>400) {
-path.y=height/2
+  
+  edges= createEdgeSprites();
+  rabbit.collide(edges);
+
+rabbit.x=World.mouseX
+
+var select_sprites = Math.round(random(1,2))
+
+if (frameCount % 80 === 0) {
+  if (select_sprites == 1) {
+createApples();
+} 
+else {
+createLeaves();
+  }
 }
-runner.x=World.mouseX
 
-runner.collide(boundary1)
-runner.collide(boundary2)
 
-boundary1.visible=false
 
-boundary2.visible=false
-drawSprites();
+
+
+
+
+
+  drawSprites();
 }

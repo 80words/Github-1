@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../C-12_Trex_2.5-main"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "Project_Template_C12_Feed_The_Rabbit-main"
+	}
+}
