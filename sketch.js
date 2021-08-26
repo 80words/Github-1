@@ -56,7 +56,7 @@ function draw() {
     knife.x=World.mouseX;
   
     // Increase score if sword touching fruit
-    if(fruitGroup.isTouching(knife&&score>=0)){
+    if(fruitGroup.isTouching(knife)){
       fruitGroup.destroyEach();
       swooshSound.play();
       score=score+2
@@ -64,7 +64,7 @@ function draw() {
     else
     {
       // Go to end state if sword touching enemy
-      if(monsterGroup.isTouching(knife&&score>=0)){
+      if(monsterGroup.isTouching(knife)){
         gameState=END;
         
         //add gameover sound here
