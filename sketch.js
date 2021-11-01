@@ -5,10 +5,10 @@ const Constraint = Matter.Constraint;
 
 var engine, world;
 var canvas;
-var player, playerBase;
+var palyer, playerBase, playerArcher;
+var playerArrows = [];
 
-var arrow
-var playerArcher
+
 function preload() {
   backgroundImg = loadImage("./assets/background.png");
   baseimage = loadImage("./assets/base.png");
@@ -20,6 +20,7 @@ function setup() {
 
   engine = Engine.create();
   world = engine.world;
+
   angleMode(DEGREES);
 
   var options = {
@@ -30,9 +31,14 @@ function setup() {
   World.add(world, playerBase);
 
   player = Bodies.rectangle(250, playerBase.position.y - 160, 50, 180, options);
-  World.add(world,player) 
-  playerArcher=new PlayerArcher(340,playerBase.position.y-112,120,120)
-  arrow=new PlayerArrow(playerArcher.body.position.x,playerArcher.body.position.y,20,20,30,30)
+  World.add(world,player)
+
+  playerArcher = new PlayerArcher(
+    340,
+    playerBase.position.y - 112,
+    120,
+    120
+  );
 }
 
 function draw() {
@@ -41,9 +47,8 @@ function draw() {
   Engine.update(engine);
   image(baseimage,playerBase.position.x,playerBase.position.y,180,150)
   image(playerimage,player.position.x,player.position.y,50,180)
-arrow.display() 
-playerArcher.display() 
 
+  playerArcher.display();
   // Title
   fill("#FFFF");
   textAlign("center");
@@ -51,6 +56,20 @@ playerArcher.display()
   text("EPIC ARCHERY", width / 2, 100);
 }
 
+function keyReleased() {
+  if (keyCode === 32) {
+    if (playerArrows.length){
+var angle=playerArcher.body.angle
+playerArrows[playerArrows.length-1].shoot(angle)
+    }
+  }
+}
 
+function keyPressed() {
 
-
+  if (keyCode === 32) {
+   var arrow=new PlayerArrow(playerArcher.body.position.x,playerArcher.body.position.y,100,10,playerArcher.body.angle)
+   Matter.Body.setAngle(arrow.body,angle)
+   playerArrows.push(arrow)
+  }
+}
